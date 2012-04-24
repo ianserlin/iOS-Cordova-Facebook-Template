@@ -26,6 +26,8 @@
 	</array>
 	<key>Plugins</key>
 	<dict>
+		<key>org.apache.cordova.twitter</key>
+		<string>TwitterPlugin</string>
 		<key>org.apache.cordova.facebook.Connect</key>
 		<string>FacebookConnectPlugin</string>
 		<key>Compass</key>

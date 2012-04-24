@@ -15,6 +15,7 @@
 	<script type="text/javascript" charset="utf-8" src="cordova-1.6.1.js"></script>
 	<script type="text/javascript" charset="utf-8" src="cdv-plugin-fb-connect.js"></script>
 	<script type="text/javascript" charset="utf-8" src="facebook_js_sdk.js"></script>
+	<script type="text/javascript" charset="utf-8" src="TwitterPlugin.js"></script>
 	
     <script type="text/javascript">
 
@@ -51,6 +52,7 @@
 	{
 		// do your thing!
 		navigator.notification.alert("Cordova is working")
+		TwitterDemo.setup();
 	}
     
     </script>
@@ -65,6 +67,21 @@
 	<button onclick="facebookWallPost()">facebookWallPost</button>
 	<button onclick="publishStoryFriend()">friendstory</button>
 	<div id="data">loading ...</div>
+
+	<h1>Hey, it's Twitter on PhoneGap!</h1>
+	<br />
+	<ol>
+		<li><a href="#" id="isAvailable">isAvailable</a></li>
+		<li><a href="#" id="isSetup">isSetup</a></li>
+		<li><a href="#" id="tweet1">tweet (text, img, url)</a></li>
+		<li><a href="#" id="tweet2">tweet (text, remote img)</a></li>
+		<li><a href="#" id="tweet6">tweet (text, local img)</a></li>
+		<li><a href="#" id="tweet3">tweet (text, url)</a></li>
+		<li><a href="#" id="tweet4">tweet (text)</a></li>
+		<li><a href="#" id="tweet5">tweet (empty)</a></li>
+		<li><a href="#" id="timeline">timeline</a></li>
+		<li><a href="#" id="mentions">mentions</a></li>
+	</ol>
 
 	<h1>Hey, it's Cordova!</h1>
 	<p>Don't know how to get started? Check out our <em><a target="_blank" href="http://docs.phonegap.com/en/edge/guide_getting-started_ios_index.md.html#Getting%20Started%20with%20iOS">Getting Started Guide</a></em>
@@ -203,6 +220,136 @@
                                       }
                                       }, false);
             </script>
+
+        <script type="text/javascript">
+			TwitterDemo = {
+			    $:function(id){
+			        return document.getElementById(id);
+			    },
+			    
+			    log:function(s){
+			        TwitterDemo.$("twitterlog").innerHTML = s;
+			    },
+			    
+			    setup:function(){
+			        var tests = ["isAvailable", "isSetup", "tweet1", "tweet2", "tweet3", "tweet4", "tweet5", "tweet6", "timeline", "mentions"];
+			        window.plugins.twitter.isTwitterAvailable(function(r){
+			            TwitterDemo.log("twitter available? " + r);
+			        }); 
+			        for(var i=0, l=tests.length; i<l; i++){
+			            this.$(tests[i]).onclick = this[tests[i]];
+			        }
+			    },
+			    
+			    isAvailable:function(){
+			        TwitterDemo.log("wait..");
+			        window.plugins.twitter.isTwitterAvailable(function(r){
+			            TwitterDemo.log("twitter available? " + r);
+			        });        
+			    },
+			    
+			    isSetup:function(){
+			        TwitterDemo.log("wait..");
+			        window.plugins.twitter.isTwitterSetup(function(r){
+			            TwitterDemo.log("twitter configured? " + r);
+			        });
+			    },
+			  
+				tweet1:function(){
+					TwitterDemo.log("wait..");
+					window.plugins.twitter.composeTweet(
+						function(s){ TwitterDemo.log("tweet success"); }, 
+						function(e){ TwitterDemo.log("tweet failure: " + e); }, 
+						"Text, Image, URL", 
+						{
+							urlAttach:"http://m.youtube.com/#/watch?v=obx2VOtx0qU", 
+							imageAttach:"http://i.ytimg.com/vi/obx2VOtx0qU/hqdefault.jpg?w=320&h=192&sigh=QD3HYoJj9dtiytpCSXhkaq1oG8M"
+						});
+				},
+
+
+				/*
+				 //Original tweet1 example
+			    tweet1:function(){
+			        TwitterDemo.log("wait..");
+			        window.plugins.twitter.composeTweet(
+			            function(s){ TwitterDemo.log("tweet success"); }, 
+			            function(e){ TwitterDemo.log("tweet failure: " + e); }, 
+			            "Text, Image, URL", 
+			            {
+			                urlAttach:"https://github.com/brianantonelli", 
+			                imageAttach:"http://zomgdinosaurs.com/zomg.jpg"
+			            });
+			    },
+				 
+				 */
+
+			    tweet2:function(){
+			        TwitterDemo.log("wait..");
+			        window.plugins.twitter.composeTweet(
+			            function(s){ TwitterDemo.log("tweet success"); }, 
+			            function(e){ TwitterDemo.log("tweet failure: " + e); }, 
+			            "Text, Remote Image", 
+			            {
+			                imageAttach:"http://zomgdinosaurs.com/zomg.jpg"
+			            });
+			    },
+
+			    tweet6:function(){
+			        TwitterDemo.log("wait..");
+			        window.plugins.twitter.composeTweet(
+			                                            function(s){ TwitterDemo.log("tweet success"); }, 
+			                                            function(e){ TwitterDemo.log("tweet failure: " + e); }, 
+			                                            "Text, Local Image", 
+			                                            {
+			                                            imageAttach:"www/ninja-lolcat.gif"
+			                                            });
+			    },
+
+			    tweet3:function(){
+			        TwitterDemo.log("wait..");
+			        window.plugins.twitter.composeTweet(
+			            function(s){ TwitterDemo.log("tweet success"); }, 
+			            function(e){ TwitterDemo.log("tweet failure: " + e); }, 
+			            "Text, URL", 
+			            {
+			                urlAttach:"https://github.com/brianantonelli"
+			            });
+			    },
+
+			    tweet4:function(){
+			        TwitterDemo.log("wait..");
+			        window.plugins.twitter.composeTweet(
+			            function(s){ TwitterDemo.log("tweet success"); }, 
+			            function(e){ TwitterDemo.log("tweet failure: " + e); }, 
+			            "Text");
+			    },
+			    
+			    tweet5:function(){
+			        TwitterDemo.log("wait..");
+			        window.plugins.twitter.composeTweet(
+			            function(s){ TwitterDemo.log("tweet success"); }, 
+			            function(e){ TwitterDemo.log("tweet failure: " + e); });
+			    },
+
+			    timeline:function(){
+			        TwitterDemo.log("wait..");
+			        window.plugins.twitter.getPublicTimeline(
+			            function(s){ TwitterDemo.log("timeline success: " + JSON.stringify(s)); }, 
+			            function(e){ TwitterDemo.log("timeline failure: " + e); });
+			    },
+			    
+			    mentions:function(){
+			        TwitterDemo.log("wait..");
+			        window.plugins.twitter.getMentions(
+			            function(s){ TwitterDemo.log("mentions success: " + JSON.stringify(s)); }, 
+			            function(e){ TwitterDemo.log("mentions failure: " + e); });
+			    }
+			    
+			};
+        </script>
         <div id="log"></div>
+        <div id="twitterlog"></div>
+
   </body>
 </html>

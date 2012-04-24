@@ -52,6 +52,9 @@
 		3CD13E8915464FC800E03E25 /* SBJsonBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CD13E7B15464FC800E03E25 /* SBJsonBase.m */; };
 		3CD13E8A15464FC800E03E25 /* SBJsonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CD13E7D15464FC800E03E25 /* SBJsonParser.m */; };
 		3CD13E8B15464FC800E03E25 /* SBJsonWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CD13E7F15464FC800E03E25 /* SBJsonWriter.m */; };
+		3CD13E9115469FB600E03E25 /* TwitterPlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CD13E9015469FB600E03E25 /* TwitterPlugin.m */; };
+		3CD13E961546A3C100E03E25 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3CD13E941546A04600E03E25 /* Accounts.framework */; };
+		3CD13E971546A3C700E03E25 /* Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3CD13E921546A04000E03E25 /* Twitter.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -120,6 +123,10 @@
 		3CD13E7D15464FC800E03E25 /* SBJsonParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonParser.m; sourceTree = "<group>"; };
 		3CD13E7E15464FC800E03E25 /* SBJsonWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonWriter.h; sourceTree = "<group>"; };
 		3CD13E7F15464FC800E03E25 /* SBJsonWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonWriter.m; sourceTree = "<group>"; };
+		3CD13E8F15469FB600E03E25 /* TwitterPlugin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TwitterPlugin.h; sourceTree = "<group>"; };
+		3CD13E9015469FB600E03E25 /* TwitterPlugin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TwitterPlugin.m; sourceTree = "<group>"; };
+		3CD13E921546A04000E03E25 /* Twitter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Twitter.framework; path = System/Library/Frameworks/Twitter.framework; sourceTree = SDKROOT; };
+		3CD13E941546A04600E03E25 /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -127,6 +134,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3CD13E971546A3C700E03E25 /* Twitter.framework in Frameworks */,
+				3CD13E961546A3C100E03E25 /* Accounts.framework in Frameworks */,
 				3CD13E0815464C5700E03E25 /* Foundation.framework in Frameworks */,
 				3CD13E0A15464C5700E03E25 /* UIKit.framework in Frameworks */,
 				3CD13E0C15464C5700E03E25 /* CoreGraphics.framework in Frameworks */,
@@ -157,6 +166,8 @@
 		3CD13DF515464C5700E03E25 = {
 			isa = PBXGroup;
 			children = (
+				3CD13E941546A04600E03E25 /* Accounts.framework */,
+				3CD13E921546A04000E03E25 /* Twitter.framework */,
 				3CD13E5F15464CBB00E03E25 /* www */,
 				3CD13E2115464C5800E03E25 /* CordovaFacebookTemplate */,
 				3CD13E0615464C5700E03E25 /* Frameworks */,
@@ -307,6 +318,8 @@
 		3CD13E6115464D6F00E03E25 /* ios */ = {
 			isa = PBXGroup;
 			children = (
+				3CD13E8F15469FB600E03E25 /* TwitterPlugin.h */,
+				3CD13E9015469FB600E03E25 /* TwitterPlugin.m */,
 				3CD13E6215464D6F00E03E25 /* FacebookConnectPlugin.h */,
 				3CD13E6315464D6F00E03E25 /* FacebookConnectPlugin.m */,
 			);
@@ -466,6 +479,7 @@
 				3CD13E8915464FC800E03E25 /* SBJsonBase.m in Sources */,
 				3CD13E8A15464FC800E03E25 /* SBJsonParser.m in Sources */,
 				3CD13E8B15464FC800E03E25 /* SBJsonWriter.m in Sources */,
+				3CD13E9115469FB600E03E25 /* TwitterPlugin.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -587,6 +601,7 @@
 					"/Users/Shared/Cordova/Frameworks/Cordova.framework/Headers/**",
 				);
 				INFOPLIST_FILE = "CordovaFacebookTemplate/CordovaFacebookTemplate-Info.plist";
+				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
 					"-weak_framework",
 					UIKit,
@@ -599,6 +614,7 @@
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
+				VALID_ARCHS = "armv7 armv6";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -620,6 +636,7 @@
 					"/Users/Shared/Cordova/Frameworks/Cordova.framework/Headers/**",
 				);
 				INFOPLIST_FILE = "CordovaFacebookTemplate/CordovaFacebookTemplate-Info.plist";
+				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
 					"-weak_framework",
 					UIKit,
@@ -633,6 +650,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
+				VALID_ARCHS = "armv7 armv6";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
