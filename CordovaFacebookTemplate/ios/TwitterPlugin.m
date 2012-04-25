@@ -7,11 +7,11 @@
 
 #import "TwitterPlugin.h"
 #ifdef CORDOVA_FRAMEWORK
-    #import <Cordova/JSONKit.h>
-	#import <Cordova/CDVAvailability.h>
+#import <Cordova/JSONKit.h>
+#import <Cordova/CDVAvailability.h>
 #else
-    #import "JSONKit.h"
-	#import "CDVAvailability.h"
+#import "JSONKit.h"
+#import "CDVAvailability.h"
 #endif
 
 #define TWITTER_URL @"http://api.twitter.com/1/"
@@ -22,16 +22,13 @@
     NSString *callbackId = [arguments objectAtIndex:0];
     TWTweetComposeViewController *tweetViewController = [[TWTweetComposeViewController alloc] init];
     BOOL twitterSDKAvailable = tweetViewController != nil;
-
+    
     // http://brianistech.wordpress.com/2011/10/13/ios-5-twitter-integration/
     if(tweetViewController != nil){
         [tweetViewController release];
     }
 	
-	if (IsAtLeastiOSVersion(@"3.0")) {
-		NSString *version = @"5.1";
-		NSLog(@"The TwitterPlugin requires iOS %@ or above due to is dependency on Twitter.framework.", version); // @RandyMcMillan
-	}
+	
     
     [super writeJavascript:[[CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsInt:twitterSDKAvailable ? 1 : 0] toSuccessCallbackString:callbackId]];
 }
@@ -39,7 +36,7 @@
 - (void) isTwitterSetup:(NSMutableArray*)arguments withDict:(NSMutableDictionary*)options{
     NSString *callbackId = [arguments objectAtIndex:0];
     BOOL canTweet = [TWTweetComposeViewController canSendTweet];
-
+    
     [super writeJavascript:[[CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsInt:canTweet ? 1 : 0] toSuccessCallbackString:callbackId]];
 }
 
@@ -62,7 +59,7 @@
         }
     }
     
-
+    
     
     if(imageAttach != nil){
         // Note that the image is loaded syncronously
@@ -85,14 +82,22 @@
             errorMessage = @"URL too long";
         }
     }
-
+    
     
     
     if(!ok){        
         [super writeJavascript:[[CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR 
-                                               messageAsString:errorMessage] toErrorCallbackString:callbackId]];
+                                                  messageAsString:errorMessage] toErrorCallbackString:callbackId]];
     }
     else{
+        
+#if TARGET_IPHONE_SIMULATOR
+        NSString *simWarning = @"Test TwitterPlugin on Real Hardware.";
+        //EXC_BAD_ACCESS occurs on simulator unable to reproduce on real device
+        //running iOS 5.1 and Cordova 1.6.1
+        NSLog(@"%@",simWarning);
+#endif
+        
         [tweetViewController setCompletionHandler:^(TWTweetComposeViewControllerResult result) {
             switch (result) {
                 case TWTweetComposeViewControllerResultDone:
@@ -101,7 +106,7 @@
                 case TWTweetComposeViewControllerResultCancelled:
                 default:
                     [super writeJavascript:[[CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR 
-                                                           messageAsString:@"Cancelled"] toErrorCallbackString:callbackId]];
+                                                              messageAsString:@"Cancelled"] toErrorCallbackString:callbackId]];
                     break;
             }
             
@@ -131,8 +136,8 @@
 		}
 		else{
             jsResponse = [[CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR 
-                                        messageAsString:[NSString stringWithFormat:@"HTTP Error: %i", [urlResponse statusCode]]] 
-                            	  toErrorCallbackString:callbackId];
+                                            messageAsString:[NSString stringWithFormat:@"HTTP Error: %i", [urlResponse statusCode]]] 
+                          toErrorCallbackString:callbackId];
 		}
         
 		[self performCallbackOnMainThreadforJS:jsResponse];        
@@ -165,7 +170,7 @@
                     }
                     else{
                         jsResponse = [[CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR 
-                                                     messageAsString:[NSString stringWithFormat:@"HTTP Error: %i", [urlResponse statusCode]]] 
+                                                        messageAsString:[NSString stringWithFormat:@"HTTP Error: %i", [urlResponse statusCode]]] 
                                       toErrorCallbackString:callbackId];
                     }
                     
@@ -175,19 +180,19 @@
             }
             else{
                 NSString *jsResponse = [[CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR 
-                                             messageAsString:@"No Twitter accounts available"] 
-                              toErrorCallbackString:callbackId];
+                                                          messageAsString:@"No Twitter accounts available"] 
+                                        toErrorCallbackString:callbackId];
                 [self performCallbackOnMainThreadforJS:jsResponse];
             }
         }
         else{
             NSString *jsResponse = [[CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR 
-                                         messageAsString:@"Access to Twitter accounts denied by user"] 
-                          toErrorCallbackString:callbackId];
+                                                      messageAsString:@"Access to Twitter accounts denied by user"] 
+                                    toErrorCallbackString:callbackId];
             [self performCallbackOnMainThreadforJS:jsResponse];
         }
     }];
-
+    
     [accountStore release];
 }
 
