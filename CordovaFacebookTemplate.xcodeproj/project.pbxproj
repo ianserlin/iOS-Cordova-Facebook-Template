@@ -53,8 +53,8 @@
 		3CD13E8A15464FC800E03E25 /* SBJsonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CD13E7D15464FC800E03E25 /* SBJsonParser.m */; };
 		3CD13E8B15464FC800E03E25 /* SBJsonWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CD13E7F15464FC800E03E25 /* SBJsonWriter.m */; };
 		3CD13E9115469FB600E03E25 /* TwitterPlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CD13E9015469FB600E03E25 /* TwitterPlugin.m */; };
-		3CD13E961546A3C100E03E25 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3CD13E941546A04600E03E25 /* Accounts.framework */; };
-		3CD13E971546A3C700E03E25 /* Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3CD13E921546A04000E03E25 /* Twitter.framework */; };
+		3CD13E961546A3C100E03E25 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3CD13E941546A04600E03E25 /* Accounts.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		3CD13E971546A3C700E03E25 /* Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3CD13E921546A04000E03E25 /* Twitter.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -597,10 +597,9 @@
 					"DEBUG=1,",
 					"CORDOVA_FRAMEWORK=1",
 				);
-				HEADER_SEARCH_PATHS = (
-					"/Users/Shared/Cordova/Frameworks/Cordova.framework/Headers/**",
-				);
+				HEADER_SEARCH_PATHS = "/Users/Shared/Cordova/Frameworks/Cordova.framework/Headers/**";
 				INFOPLIST_FILE = "CordovaFacebookTemplate/CordovaFacebookTemplate-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
 					"-weak_framework",
@@ -632,10 +631,9 @@
 					"NDEBUG=1,",
 					"CORDOVA_FRAMEWORK=1",
 				);
-				HEADER_SEARCH_PATHS = (
-					"/Users/Shared/Cordova/Frameworks/Cordova.framework/Headers/**",
-				);
+				HEADER_SEARCH_PATHS = "/Users/Shared/Cordova/Frameworks/Cordova.framework/Headers/**";
 				INFOPLIST_FILE = "CordovaFacebookTemplate/CordovaFacebookTemplate-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
 					"-weak_framework",
@@ -674,6 +672,7 @@
 				3CD13E5E15464C5800E03E25 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
