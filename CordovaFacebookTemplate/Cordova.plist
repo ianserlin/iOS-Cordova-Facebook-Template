@@ -26,7 +26,7 @@
 	</array>
 	<key>Plugins</key>
 	<dict>
-		<key>org.apache.cordova.twitter</key>
+		<key>TwitterPlugin</key>
 		<string>TwitterPlugin</string>
 		<key>org.apache.cordova.facebook.Connect</key>
 		<string>FacebookConnectPlugin</string>
